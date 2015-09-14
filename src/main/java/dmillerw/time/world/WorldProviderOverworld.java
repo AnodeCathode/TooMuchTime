@@ -1,22 +1,23 @@
 package dmillerw.time.world;
 
+import com.bioxx.tfc.Core.TFC_Time;
+import com.bioxx.tfc.WorldGen.TFCProvider;
+
 import cpw.mods.fml.common.Loader;
 import dmillerw.time.data.SessionData;
-import net.minecraft.world.WorldProviderSurface;
 import net.minecraftforge.common.DimensionManager;
 
 /**
  * @author dmillerw
  */
-public class WorldProviderOverworld extends WorldProviderSurface {
+public class WorldProviderOverworld extends TFCProvider {
 
+	int[] tfcDayLength = {11,12,13,14,15,14,13,12,11,10,9,10};
+	
 	public static void overrideDefault() {
 		DimensionManager.unregisterProviderType(DimensionManager.getProviderType(0));
-		if (Loader.isModLoaded("BiomesOPlenty")) {
-            DimensionManager.registerProviderType(0, WorldProviderOverworldBOP.class, true);
-        } else {
-            DimensionManager.registerProviderType(0, WorldProviderOverworld.class, true);
-        }
+        DimensionManager.registerProviderType(0, WorldProviderOverworld.class, true);
+
 	}
 
 	@Override
@@ -25,6 +26,11 @@ public class WorldProviderOverworld extends WorldProviderSurface {
 			return super.calculateCelestialAngle(time, partial);
 		}
 
+		if (SessionData.tfcSeasons) {
+			int intMonth = TFC_Time.getMonth();
+			SessionData.dayDuration = tfcDayLength[intMonth] * 1000;
+			SessionData.nightDuration = 24000 - SessionData.dayDuration;
+		}
 		// This method eventually returns a values from 0 to 1
 
 		// 0 OR 1 has the sun in the center

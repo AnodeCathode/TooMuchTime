@@ -13,7 +13,7 @@ import net.minecraftforge.common.config.Configuration;
 /**
  * @author dmillerw
  */
-@Mod(modid = "TooMuchTime", name = "TooMuchTime", version = "%MOD_VERSION%", dependencies = "after:BiomesOPlenty; required-after:Forge@[%FORGE_VERSION%,)")
+@Mod(modid = "TooMuchTime", name = "TooMuchTime", version = "%MOD_VERSION%", dependencies = "required-after:terrafirmacraft")
 public class TooMuchTime {
 
 	public static Configuration configuration;
