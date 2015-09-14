@@ -12,7 +12,7 @@ import net.minecraftforge.common.DimensionManager;
  */
 public class WorldProviderOverworld extends TFCProvider {
 
-	int[] tfcDayLength = {11,12,13,14,15,14,13,12,11,10,9,10};
+	int[] tfcDayLength = {13200,14400,15600,16800,18000,16800,15600,14400,13200,12000,10800,12000};
 	
 	public static void overrideDefault() {
 		DimensionManager.unregisterProviderType(DimensionManager.getProviderType(0));
@@ -28,7 +28,7 @@ public class WorldProviderOverworld extends TFCProvider {
 
 		if (SessionData.tfcSeasons) {
 			int intMonth = TFC_Time.getMonth();
-			SessionData.dayDuration = tfcDayLength[intMonth] * 1000;
+			SessionData.dayDuration = tfcDayLength[intMonth];
 			SessionData.nightDuration = 24000 - SessionData.dayDuration;
 		}
 		// This method eventually returns a values from 0 to 1
