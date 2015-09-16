@@ -13,6 +13,7 @@ import net.minecraftforge.common.DimensionManager;
 public class WorldProviderOverworld extends TFCProvider {
 
 	int[] tfcDayLength = {13200,14400,15600,16800,18000,16800,15600,14400,13200,12000,10800,12000};
+	int tickCount = 0;
 	
 	public static void overrideDefault() {
 		DimensionManager.unregisterProviderType(DimensionManager.getProviderType(0));
@@ -54,7 +55,7 @@ public class WorldProviderOverworld extends TFCProvider {
 
 		int absoluteTime = (int) (Math.max(1, time) % (SessionData.dayDuration + SessionData.nightDuration));
 		boolean day = absoluteTime >= 0 && absoluteTime < SessionData.dayDuration;
-		int cycleTime = day ? (absoluteTime % SessionData.dayDuration) : (absoluteTime % SessionData.nightDuration);
+		int cycleTime = day ? (absoluteTime % SessionData.dayDuration) : (absoluteTime - SessionData.dayDuration);
 		float value = 0.5F * ((float) cycleTime + partial) / (day ? (float)(SessionData.dayDuration) : (float)(SessionData.nightDuration));
 
 		if (day) {
@@ -62,7 +63,13 @@ public class WorldProviderOverworld extends TFCProvider {
 		} else {
 			value += 0.25F;
 		}
-
+//		tickCount += 1;
+//		if (tickCount == 10){
+//			System.out.println(time + " : " + partial + " : " + absoluteTime + " : " + day + " : " + cycleTime);
+//			System.out.println(value);	
+//			tickCount=0;
+//		}
+//		
 		return value;
 	}
 }
